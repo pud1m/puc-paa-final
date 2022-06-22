@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
 
   # Define os tipos de teste (arquivos)
-  test_cases = [1]
+  test_cases = [1, 2, 3, 4]
 
   # Define os algoritmos a serem usados
   algorithms = [

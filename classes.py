@@ -54,9 +54,16 @@ class ResultadoCusto(object):
       rolo_list += f' {rolo}\n'
     return rolo_list
   
+  @staticmethod
+  def build_rolo_info(width: int, cil_size: int, cost: int):
+    # Constroi infors do rolo como string
+    return (
+      f' De {width}mm -> {width - cil_size}mm. Reducao de {cil_size}mm. Custo: {cost}'
+      )
+  
   def __str__(self):
     # Retorna o objeto como string
-    return f'Expessura {str(self.item.width).rjust(2, "0")} --> Custo total: {str(self.custo).rjust(2, "0")}. Rolos:\n {self.get_rolo_pretty_print()}'
+    return f'Expessura {str(self.item.width).rjust(2, "0")} --> Custo total: {str(self.custo).rjust(2, "0")}. Rolos:\n{self.get_rolo_pretty_print()}'
 
 
 
@@ -81,4 +88,3 @@ class TestManager(object):
       print(f'**** Algoritmo {algorithm["name"]} executado em {algorithm["exec_time"]}')
       print(f'**** Melhor resultado: {algorithm["best_result"]}')
       print('\n')
-    print('\n')

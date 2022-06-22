@@ -20,15 +20,16 @@ def greedy_choice(
 
   best_cilinder_size = int(min(cost_per_mm, key=cost_per_mm.get))
   reduction -= best_cilinder_size
-  rolos.append(
-    f'De {current_item.width}mm -> {current_item.width - best_cilinder_size}mm. Reducao de {best_cilinder_size}mm'
-    )
-  total_cost += current_item.cost_by_number(best_cilinder_size)
+  reduction_cost = current_item.cost_by_number(best_cilinder_size)
+  rolos.append(ResultadoCusto.build_rolo_info(
+    current_item.width, best_cilinder_size, reduction_cost
+    ))
+  total_cost += reduction_cost
 
   if reduction == 0:
     return ResultadoCusto(current_item, total_cost, rolos)
   else:
-    current_item = test_case.widthList.pop(0)
+    current_item = test_case.get_cost(current_item.width - best_cilinder_size)
     return greedy_choice(test_case, current_item, rolos, total_cost)
 
 
