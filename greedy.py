@@ -1,15 +1,5 @@
 from classes import ItemLargura, ResultadoCusto
-
-
-def get_cost_per_mm(item: ItemLargura):
-  """
-    Recebe o ItemLargura e retorna o custo por mm para cada nível de redução
-  """
-  return_dict = {}
-  if item.custo_1 is not None: return_dict['1'] = item.custo_1
-  if item.custo_2 is not None: return_dict['2'] = item.custo_2 / 2
-  if item.custo_3 is not None: return_dict['3'] = item.custo_3 / 3
-  return return_dict
+from common import get_cost_per_mm
 
 
 def greedy_choice(
@@ -35,10 +25,10 @@ def greedy_choice(
   return greedy_choice(reduction, item, cost_per_mm, rolos, total_cost)
 
 
-
 def get_best_option(item: ItemLargura) -> ResultadoCusto:
   """
     Recebe o ItemLargura e retorna o ResultadoCusto com a melhor forma de se chegar em 4mm
+    utilizando um algoritmo guloso
   """
   cost_per_mm = get_cost_per_mm(item)
-  return greedy_choice(item.reduction_needed(), item, cost_per_mm)
+  return greedy_choice(item.reduction_needed(), item, cost_per_mm, [], 0)

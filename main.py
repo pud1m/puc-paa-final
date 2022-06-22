@@ -5,7 +5,7 @@ from greedy import get_best_option
 
 def sanitize_line(line):
   # Recebe uma linha do arquivo e a sanitiza
-  return re.sub(' +', ' ', line).replace('\n', '') + ' 0 0'
+  return re.sub(r' +', ' ', line).replace('\n', '') + ' 0 0'
 
 
 def get_payload_from_file(number):
@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
 
   # Define os tipos de teste (arquivos)
-  test_cases = [1,2,3,4]
+  test_cases = [1, 2, 3, 4]
 
   # Define os algoritmos a serem usados
   algorithms = [
@@ -60,7 +60,7 @@ if __name__ == '__main__':
         'name': algorithm['name'],
         'exec_time': f'{(time.perf_counter_ns() - start)} ns',
         'results': result_list,
-        'best_result': min(result_list, key=lambda x: x.custo)
+        'best_result': min(result_list, key=lambda x: x.custo),
       })
 
     # Adiciona o resultado do teste à lista de resultados
@@ -69,16 +69,20 @@ if __name__ == '__main__':
       'results': algorithm_results
     })
 
-  print('==============================')
+  print('============================== \n')
   
 
   # Imprime os resultados
   print('************* RESULTADOS *************')
   for test in test_results:
-    print(f'Caso de teste #{test["case"]}')
+    print(f'====== >Caso de teste #{test["case"]}')
     for algorithm in test['results']:
-      print(f'Algoritmo: {algorithm["name"]}')
-      print(f'Melhor resultado: {algorithm["best_result"]}')
-      print(f'Tempo de exec: {algorithm["exec_time"]}')
+      print(f'**** Algoritmo {algorithm["name"]} executado em {algorithm["exec_time"]}')
+      print(f'**** Melhor resultado: {algorithm["best_result"]}')
+      for result in algorithm['results']:
+        print(result)
+      print('\n')
+    print('\n')
+
 
   print('==============================')

@@ -49,4 +49,4 @@ class ResultadoCusto(object):
   
   def __str__(self):
     # Retorna o objeto como string
-    return f'Expessura {self.item.width}. Custo: {self.custo}. Rolos: {self.tamanho_rolos}'
+    return f'Expessura {str(self.item.width).rjust(2, "0")} --> Custo: {str(self.custo).rjust(2, "0")}. Rolos: {self.tamanho_rolos}'
