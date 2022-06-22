@@ -1,3 +1,3 @@
 # PUC PAA - 2022/1
-Marco Tulio Oliveira e Thalles Sales
+Marco Tulio e Thalles Sales
 
