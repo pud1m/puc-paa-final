@@ -1,5 +1,5 @@
 import time, re
-from classes import ItemLargura
+from classes import ItemLargura, TestManager
 from greedy import get_best_option
 
 
@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
 
   # Define os tipos de teste (arquivos)
-  test_cases = [1, 2, 3, 4]
+  test_cases = [1]
 
   # Define os algoritmos a serem usados
   algorithms = [
@@ -49,25 +49,23 @@ if __name__ == '__main__':
 
     algorithm_results = []
 
+    current_test = TestManager(inputs, case, algorithm_results)
+
     # Para cada algoritmo
     for algorithm in algorithms:
       print(algorithm['name'])
       result_list = []
       start = time.perf_counter_ns()
-      for item in inputs:
-        result_list.append(algorithm['function'](item))
+      best_result = algorithm['function'](current_test)
       algorithm_results.append({
         'name': algorithm['name'],
         'exec_time': f'{(time.perf_counter_ns() - start)} ns',
-        'results': result_list,
-        'best_result': min(result_list, key=lambda x: x.custo),
+        'best_result': best_result,
       })
 
     # Adiciona o resultado do teste à lista de resultados
-    test_results.append({
-      'case': case,
-      'results': algorithm_results
-    })
+    current_test.algorithm_results = algorithm_results
+    test_results.append(current_test)
 
   print('============================== \n')
   
@@ -75,14 +73,6 @@ if __name__ == '__main__':
   # Imprime os resultados
   print('************* RESULTADOS *************')
   for test in test_results:
-    print(f'====== >Caso de teste #{test["case"]}')
-    for algorithm in test['results']:
-      print(f'**** Algoritmo {algorithm["name"]} executado em {algorithm["exec_time"]}')
-      print(f'**** Melhor resultado: {algorithm["best_result"]}')
-      for result in algorithm['results']:
-        print(result)
-      print('\n')
-    print('\n')
-
+    test.print_results()
 
   print('==============================')

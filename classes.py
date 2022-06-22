@@ -46,7 +46,39 @@ class ResultadoCusto(object):
     self.custo = cost
     self.tamanho_rolos = rolos
     self.item = item
+
+  def get_rolo_pretty_print(self):
+    # Retorna uma versão mais bonita da lista de rolos
+    rolo_list = ''
+    for rolo in self.tamanho_rolos:
+      rolo_list += f' {rolo}\n'
+    return rolo_list
   
   def __str__(self):
     # Retorna o objeto como string
-    return f'Expessura {str(self.item.width).rjust(2, "0")} --> Custo: {str(self.custo).rjust(2, "0")}. Rolos: {self.tamanho_rolos}'
+    return f'Expessura {str(self.item.width).rjust(2, "0")} --> Custo total: {str(self.custo).rjust(2, "0")}. Rolos:\n {self.get_rolo_pretty_print()}'
+
+
+
+class TestManager(object):
+  def __init__(self, itemList: list, case_number: int, algorithm_results: list):
+    # Construtor
+    self.widthList = itemList
+    self.case_number = case_number
+    self.algorithm_results = algorithm_results
+  
+  def get_cost(self, current_mm: int) -> ItemLargura:
+    # Retorna o ItemLargura para uma espessura determinada
+    for item in self.widthList:
+      if item.width == current_mm:
+        return item
+    return None
+
+  def print_results(self):
+    # Imprime os resultados
+    print(f'======> Caso de teste #{self.case_number}')
+    for algorithm in self.algorithm_results:
+      print(f'**** Algoritmo {algorithm["name"]} executado em {algorithm["exec_time"]}')
+      print(f'**** Melhor resultado: {algorithm["best_result"]}')
+      print('\n')
+    print('\n')
